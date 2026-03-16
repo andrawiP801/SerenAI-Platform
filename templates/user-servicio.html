@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Servicio Cliente - SerenAI {% endblock title %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/servicio.css' %}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock extrahead %}
+
+{% block headerTitle %}
+<div class="page-title d-none d-md-block">
+    <h2>Servicio a Cliente</h2>
+</div>
+{% endblock headerTitle %}
+
+{% block main %}
+<main class="servicio-main">
+    <section class="servicio-chat-section">
+        <div class="servicio-chat-window">
+            <div id="messages" class="servicio-messages">
+                <!-- Mensajes del chat -->
+            </div>
+            <div class="servicio-message-input">
+                <form id="send-message-form" method="POST">
+                    {% csrf_token %}
+                    <input type="text" id="message-input" placeholder="Escribe tu mensaje...">
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+        <div class="servicio-faq-section">
+            <h2>Preguntas frecuentes</h2>
+            <ul class="servicio-faq-list">
+                {% for faq in faqs %}
+                <li><strong>{{ faq.question }}</strong><br>{{ faq.answer }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+</main>
+{% endblock main %}
+
+{% block script %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    if (typeof jQuery === 'undefined') {
+        console.error('jQuery is not loaded');
+    } else {
+        $(document).ready(function() {
+            var userId = "{{ request.user.id }}";
+
+            $('#send-message-form').on('submit', function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '{% url "send_message" %}',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        'text': $('#message-input').val(),
+                        'user_id': userId
+                    }),
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            $('#message-input').val('');
+                            fetchMessages();
+                        } else {
+                            console.error(response.error);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Server error:', error);
+                    }
+                });
+            });
+
+            function fetchMessages() {
+                $.ajax({
+                    url: '{% url "fetch_messages" 0 %}'.replace('0', userId),
+                    type: 'GET',
+                    success: function(data) {
+                        $('#messages').html('');
+                        data.forEach(function(message) {
+                            $('#messages').append('<p><strong>' + message.user + ':</strong> ' + message.text + '</p>');
+                        });
+                    }
+                });
+            }
+
+            fetchMessages();
+        });
+    }
+});
+</script>
+{% endblock script %}

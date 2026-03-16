@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Foro - SerenAI{% endblock %}
+
+{% block headerTitle %}
+    <div class="page-title d-none d-md-block">
+        <h2>Foro</h2>
+    </div>
+{% endblock headerTitle %}
+
+{% block main %}
+<div class="forum-chat-container">
+    <div class="forum-chat-messages">
+        {% for message in messages %}
+        <div class="forum-chat-message {% if message.user == request.user %}forum-user-message{% else %}forum-ai-message{% endif %}">
+            <p>{{ message.message }}</p>
+        </div>
+        {% empty %}
+        <p class="forum-no-messages">No hay mensajes aún.</p>
+        {% endfor %}
+    </div>
+    <div class="forum-message-input">
+        <form method="post" class="forum-input-form">
+            {% csrf_token %}
+            <input type="text" name="message" class="forum-input-message" placeholder="Escribe un mensaje...">
+            <button type="submit" class="forum-send-button">Enviar</button>
+        </form>
+    </div>
+</div>
+{% endblock main %}

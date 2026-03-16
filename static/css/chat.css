@@ -1,0 +1,113 @@
+/* Base styles for forum chat container */
+.forum-chat-container {
+    width: 100%;
+    max-width: 1250px;
+    height: 560px;
+    margin: 20px auto;
+    border: 8px solid #19D8B6;
+    border-radius: 20px;
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.forum-chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    font-family: 'Montaser Arabic', sans-serif;
+}
+
+/* General message styling */
+.forum-chat-message {
+    clear: both;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    max-width: 60%;
+    font-family: 'Montaser Arabic', sans-serif;
+}
+
+/* Specific styling for AI messages */
+.forum-ai-message {
+    background-color: var(--secondary-color);
+    text-align: left;
+    float: left;
+}
+
+/* Specific styling for user messages */
+.forum-user-message {
+    background-color: var(--primary-color);
+    text-align: right;
+    float: right;
+}
+
+.forum-no-messages {
+    text-align: center;
+    color: #888;
+    font-family: 'Montaser Arabic', sans-serif;
+}
+
+/* Message input styling */
+.forum-message-input {
+    padding: 10px;
+    background-color: #FFF;
+    border-top: 2px solid #19D8B6;
+    display: flex;
+    justify-content: space-between;
+}
+
+.forum-input-form {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.forum-input-message {
+    flex-grow: 1;
+    border: 2px solid #19D8B6;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-family: 'Montaser Arabic', sans-serif;
+    font-size: 16px;
+    background-color: #19D8B6;
+    color: #FFF;
+}
+
+.forum-send-button {
+    padding: 10px 20px;
+    background-color: #864499;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Montaser Arabic', sans-serif;
+    font-size: 16px;
+    margin-left: 10px; /* Espacio entre el input y el botón */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .forum-chat-container {
+        height: auto;
+    }
+
+    .forum-chat-message {
+        max-width: 75%;
+    }
+
+    .forum-input-form {
+        flex-direction: column;
+    }
+
+    .forum-input-message {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .forum-send-button {
+        margin-left: 0;
+    }
+}

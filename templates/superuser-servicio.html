@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Servicio - SerenAI {% endblock title %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/servicio.css' %}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock extrahead %}
+
+{% block headerTitle %}
+<div class="page-title d-none d-md-block">
+    <h2>Servicio a Cliente</h2>
+</div>
+{% endblock headerTitle %}
+
+{% block main %}
+<main class="servicio-main">
+    <section class="servicio-admin-section">
+        <h2>Usuarios</h2>
+        <ul id="user-list">
+            {% for user in users %}
+            <li><a href="{% url 'user_chat' user.id %}">{{ user.username }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+</main>
+{% endblock main %}
