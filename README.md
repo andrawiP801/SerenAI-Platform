@@ -94,3 +94,5 @@ Access the site at [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 ---
 
 > **⚕️ Disclaimer:** SerenAI is not a substitute for professional medical advice. Always seek professional assistance for mental health concerns.
+
+  
